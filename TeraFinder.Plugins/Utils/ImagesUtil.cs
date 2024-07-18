@@ -11,14 +11,14 @@ public static class ImagesUtil
     {
         SpriteName.AllowShinySprite = true;
         var file = pkm.Shiny > TeraShiny.No && pkm.Species < (ushort)Species.Sprigatito ?
-            'b' + SpriteName.GetResourceStringSprite(pkm.Species, pkm.Form, (int)pkm.Gender, (uint)(pkm.Species == (ushort)Species.Gholdengo ? 999 : 0), EntityContext.Gen9, true) :
-            'a' + SpriteName.GetResourceStringSprite(pkm.Species, pkm.Form, (int)pkm.Gender, (uint)(pkm.Species == (ushort)Species.Gholdengo ? 999 : 0), EntityContext.Gen9, false);
+            'b' + SpriteName.GetResourceStringSprite(pkm.Species, pkm.Form, (byte)pkm.Gender, (uint)(pkm.Species == (ushort)Species.Gholdengo ? 999 : 0), EntityContext.Gen9, true) :
+            'a' + SpriteName.GetResourceStringSprite(pkm.Species, pkm.Form, (byte)pkm.Gender, (uint)(pkm.Species == (ushort)Species.Gholdengo ? 999 : 0), EntityContext.Gen9, false);
 
         var sprite = (Image?)PKHeX.Drawing.PokeSprite.Properties.Resources.ResourceManager.GetObject(file);
 
         if (sprite is null)
         {
-            file = 'a' + SpriteName.GetResourceStringSprite(pkm.Species, pkm.Form, (int)pkm.Gender, (uint)(pkm.Species == (ushort)Species.Gholdengo ? 999 : 0), EntityContext.Gen9, false);
+            file = 'a' + SpriteName.GetResourceStringSprite(pkm.Species, pkm.Form, (byte)pkm.Gender, (uint)(pkm.Species == (ushort)Species.Gholdengo ? 999 : 0), EntityContext.Gen9, false);
             sprite = (Image?)PKHeX.Drawing.PokeSprite.Properties.Resources.ResourceManager.GetObject(file);
         }
 
@@ -31,7 +31,7 @@ public static class ImagesUtil
         if (!active && sprite is not null) sprite = ImageUtil.ToGrayscale(sprite);
 
         if(sprite is not null)
-            ImageUtil.BlendTransparentTo(sprite, TypeColor.GetTypeSpriteColor((byte)pkm.TeraType), 0xAF, 0x3740);
+            ImageUtil.BlendTransparentTo(sprite, TypeColor.GetTypeSpriteColor(pkm.TeraType), 0xAF, 0x3740);
 
         return sprite;
     }
